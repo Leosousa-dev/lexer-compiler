@@ -1,3 +1,6 @@
 
-const mensager: string = "ola"
-console.log(mensager)
+
+function lexer(path: string){
+}
+
+lexer("")
