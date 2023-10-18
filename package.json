@@ -1,0 +1,14 @@
+{
+  "name": "lexer-compiler",
+  "version": "1.0.0",
+  "main": "lexer.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/lexer.ts"
+  },
+  "devDependencies": {
+    "tsx": "^3.14.0",
+    "typescript": "^5.2.2"
+  }
+}
