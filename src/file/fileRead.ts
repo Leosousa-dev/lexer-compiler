@@ -1,13 +1,20 @@
 import path from "node:path";
 import fs from "node:fs";
 import getPathFile from "../cli/input/input";
-
+import chalk from "chalk";
 
 export default function read(){
     const fileName = getPathFile()  // <- get param[pathFile]
     const currentDir = process.cwd() // <- get current path
     const fullPath = path.join(currentDir, fileName);
-    const source = fs.readFileSync(fullPath, 'utf-8')
-
-    return source;
+    try{
+        const source = fs.readFileSync(fullPath, 'utf-8')
+        return source;
+    } catch(err){
+        if(err.code === "ENOENT"){
+            console.error(`O arquivo não existe: ${chalk.yellowBright.underline(fileName)}`);
+        }else{
+            return console.error(`Error desconhecido: ${chalk.redBright(err.message)}`);
+        }
+    }
 }
