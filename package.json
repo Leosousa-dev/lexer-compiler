@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "tsx src/lexer.ts"
+    "dev": "tsx watch src/lexer.ts"
   },
   "devDependencies": {
     "@types/node": "^20.8.7",
