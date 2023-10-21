@@ -1,9 +1,10 @@
+import read from "./file/fileRead"
 
 
-function lexer(path: string):{}{
+function lexer(){
+    const code = read()
 
-return {"msg": "ok"}
+    console.log(code);
 }
 
-
-console.log(lexer(""))
+lexer()

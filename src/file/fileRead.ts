@@ -9,6 +9,7 @@ export default function read(){
     const fullPath = path.join(currentDir, fileName);
     try{
         const source = fs.readFileSync(fullPath, 'utf-8')
+
         return source;
     } catch(err){
         if(err.code === "ENOENT"){
