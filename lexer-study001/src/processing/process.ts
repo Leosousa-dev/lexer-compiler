@@ -17,9 +17,9 @@ export default function parse(code) {
         if (currentToken === "let") {
             tokens.push({ type: "KEYWORD", value: "let" });
         }
-        // else if (currentToken.match(/^[a-zA-Z_][a-zA-Z0-9_]*$/)) {
-        //     tokens.push({ type: "IDENTIFIER", value: currentToken });
-        // }
+        else if (currentToken.match(/^[a-zA-Z_][a-zA-Z0-9_]*$/)) {
+            tokens.push({ type: "IDENTIFIER", value: currentToken });
+        }
         index++;
     }
     console.log(tokens);
