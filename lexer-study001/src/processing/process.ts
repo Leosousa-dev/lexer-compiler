@@ -13,12 +13,14 @@ export default function parse(code) {
 
     while (source.length > index) {
         let currentToken = source[index];
-        console.log(currentToken)
+        console.log(currentToken === "{cl")
         if (currentToken === "let") {
             tokens.push({ type: "KEYWORD", value: "let" });
         }
         else if (currentToken.match(/^[a-zA-Z_][a-zA-Z0-9_]*$/)) {
             tokens.push({ type: "IDENTIFIER", value: currentToken });
+        } else if (currentToken === "number" || !isNaN(Number(currentToken))) {
+            tokens.push({ type: "NUMBER", value: currentToken });
         }
         index++;
     }
