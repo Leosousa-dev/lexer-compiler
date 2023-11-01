@@ -25,6 +25,7 @@ function isIdentifier(char: string): boolean{
     return /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(char) && !isReservedWord(char);
 };
 
+
 type Token = {
     kind: tokenKind,
     value: string
@@ -67,6 +68,7 @@ export default function parse(code: string) {
         if(isIdentifier(char)){
             tokens.push(createTk(tokenKind.ID, char));
         }
+     
             char = ""
         }
         
