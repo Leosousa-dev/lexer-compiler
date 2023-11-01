@@ -4,7 +4,7 @@ enum tokenKind{
     EQ = 'eq', // Equality operator '=='
     LP = 'lp', // Left parenthesis '('
     RP = 'rp', // Right parenthesis ')'
-    Left_BRACE = 'lcb', // Left curly brace '{'
+    LEFT_BRACE = 'lcb', // Left curly brace '{'
     RIGHT_BRACE = 'rcb', // Right curly brace '}'
     SC = 'sc', // Semicolon ';'
     ADD = 'add', // Plus '+'
@@ -12,17 +12,28 @@ enum tokenKind{
     STR = 'str', // String literal
     ID = 'id',   // Identifier
     EOF = "EOF"
-}
+};
+
+const reservedkeys = new Set(['let']);
+
+function isReservedWord(char: string): boolean{
+    return reservedkeys.has(char)
+};
+
+
+function isIdentifier(char: string): boolean{
+    return /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(char) && !isReservedWord(char);
+};
 
 type Token = {
     kind: tokenKind,
     value: string
-}
+};
 
 function createTk(typeTk: tokenKind, valueTk: string = ""): Token{
     const newTk = {kind: typeTk, value: valueTk}
     return newTk;
-}
+};
 
 
 export default function parse(code: string) {
@@ -46,19 +57,22 @@ export default function parse(code: string) {
                     tokens.push(createTk(tokenKind.LET, char))
                     break;
                 case "{":
-                    console.log("achouuuu!!: ", char)
+                    tokens.push(createTk(tokenKind.LEFT_BRACE, char))
                     break;
                 case "}":
-                    console.log("achouuuu!!: ", char)
+                    tokens.push(createTk(tokenKind.RIGHT_BRACE, char))
                     break;
 
-            }
+            };
+        if(isIdentifier(char)){
+            tokens.push(createTk(tokenKind.ID, char));
+        }
             char = ""
         }
         
         
         index++;
-    }
+    };
     console.log(tokens)
     return tokens;
-}
+};
