@@ -1,3 +1,4 @@
+import { isIdentifier } from "../utils/isIdentifier";
 
 enum tokenKind{
     LET = 'let', // Keyword let
@@ -14,16 +15,6 @@ enum tokenKind{
     EOF = "EOF"
 };
 
-const reservedkeys = new Set(['let']);
-
-function isReservedWord(char: string): boolean{
-    return reservedkeys.has(char)
-};
-
-
-function isIdentifier(char: string): boolean{
-    return /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(char) && !isReservedWord(char);
-};
 
 
 type Token = {
@@ -47,7 +38,8 @@ export default function parse(code: string) {
 
     while (code.length > index) {
         let currentToken = code[index];
-        
+        let insideString: boolean = false;
+
         if(!skipChar.has(currentToken)){
             char+= currentToken;
 
@@ -64,11 +56,12 @@ export default function parse(code: string) {
                     tokens.push(createTk(tokenKind.RIGHT_BRACE, char))
                     break;
 
+                default:
+                    console.error("caracter nao reconhecido: ", char)
             };
         if(isIdentifier(char)){
             tokens.push(createTk(tokenKind.ID, char));
         }
-     
             char = ""
         }
         
