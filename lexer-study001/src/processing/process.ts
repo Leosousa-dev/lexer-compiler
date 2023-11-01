@@ -1,20 +1,37 @@
 
+enum tokenKind{
+    LET = 'let', // Keyword let
+    EQ = 'eq', // Equality operator '=='
+    LP = 'lp', // Left parenthesis '('
+    RP = 'rp', // Right parenthesis ')'
+    Left_BRACE = 'lcb', // Left curly brace '{'
+    RIGHT_BRACE = 'rcb', // Right curly brace '}'
+    SC = 'sc', // Semicolon ';'
+    ADD = 'add', // Plus '+'
+    INT = 'int', // Integer literal
+    STR = 'str', // String literal
+    ID = 'id',   // Identifier
+    EOF = "EOF"
+}
+
 type Token = {
-    type: string,
+    kind: tokenKind,
     value: string
 }
 
-function createTk(typeTk: string, valueTk: string): Token{
-    return {type: typeTk, value: valueTk}
+function createTk(typeTk: tokenKind, valueTk: string = ""): Token{
+    const newTk = {kind: typeTk, value: valueTk}
+    return newTk;
 }
 
-export default function parse(code) {
+
+export default function parse(code: string) {
     let tokens:  Token[] = [];
     let index = 0;
     let char: string = "";
     const skipChar = new Set(["\n", "\t", " ", ""])
 
-    tokens.push({type: "EOF", value: "EOF"});
+
 
     while (code.length > index) {
         let currentToken = code[index];
@@ -26,7 +43,7 @@ export default function parse(code) {
             
             switch(char){
                 case "let":
-                    console.log("achouuuu!!: ", char);
+                    tokens.push(createTk(tokenKind.LET, char))
                     break;
                 case "{":
                     console.log("achouuuu!!: ", char)
@@ -42,6 +59,6 @@ export default function parse(code) {
         
         index++;
     }
-    // console.log(tokens)
+    console.log(tokens)
     return tokens;
 }
