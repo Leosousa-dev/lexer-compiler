@@ -7,28 +7,23 @@ type Tokens = {
 export default function parse(code) {
     let tokens:  Tokens[] = [];
     let index = 0;
+    let char: string = "";
+    const skipChar = new Set(["\n", "\t", " "])
 
-    const source = code.split(" ");
     tokens.push({type: "EOF", value: "EOF"});
 
-    while (source.length > index) {
-        let currentToken = source[index];
-        console.log(currentToken)
+    while (code.length > index) {
+        let currentToken = code[index];
+        if(!skipChar.has(currentToken)){
+            char+= currentToken;
 
-        if (currentToken === "let") {
-            tokens.push({ type: "KEYWORD", value: "let" });
+        }else if(char !== ""){
+            console.log(char)
+            char = ""
         }
-        if (currentToken === "=") {
-            tokens.push({ type: "EQUALS", value: currentToken });
-        }
-        else if (currentToken.match(/^[a-zA-Z_][a-zA-Z0-9_]*$/)) {
-            tokens.push({ type: "IDENTIFIER", value: currentToken });
-        } else if (currentToken === "number" || !isNaN(Number(currentToken))) {
-            tokens.push({ type: "NUMBER", value: currentToken });
-        } 
         
         index++;
     }
-    console.log(tokens)
+    // console.log(tokens)
     return tokens;
 }
