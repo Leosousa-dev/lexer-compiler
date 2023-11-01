@@ -1,31 +1,8 @@
 import { isIdentifier } from "../utils/isIdentifier";
-
-enum tokenKind{
-    LET = 'let', // Keyword let
-    EQ = 'eq', // Equality operator '=='
-    LP = 'lp', // Left parenthesis '('
-    RP = 'rp', // Right parenthesis ')'
-    LEFT_BRACE = 'lcb', // Left curly brace '{'
-    RIGHT_BRACE = 'rcb', // Right curly brace '}'
-    SC = 'sc', // Semicolon ';'
-    ADD = 'add', // Plus '+'
-    INT = 'int', // Integer literal
-    STR = 'str', // String literal
-    ID = 'id',   // Identifier
-    EOF = "EOF"
-};
+import { tokenKind, Token } from "../types/tokenTypes";
+import createTk from "../utils/createToken";
 
 
-
-type Token = {
-    kind: tokenKind,
-    value: string
-};
-
-function createTk(typeTk: tokenKind, valueTk: string = ""): Token{
-    const newTk = {kind: typeTk, value: valueTk}
-    return newTk;
-};
 
 
 export default function parse(code: string) {
