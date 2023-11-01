@@ -1,15 +1,18 @@
 
-type Tokens = {
+type Token = {
     type: string,
     value: string
 }
 
+function createTk(typeTk: string, valueTk: string): Token{
+    return {type: typeTk, value: valueTk}
+}
+
 export default function parse(code) {
-    let tokens:  Tokens[] = [];
+    let tokens:  Token[] = [];
     let index = 0;
     let char: string = "";
     const skipChar = new Set(["\n", "\t", " ", ""])
-
 
     tokens.push({type: "EOF", value: "EOF"});
 
