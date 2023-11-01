@@ -7,7 +7,7 @@ const keyworldMap: Record<string, tokenKind> = {
     "let": tokenKind.LET,
     "{": tokenKind.LEFT_BRACE,
     "}": tokenKind.RIGHT_BRACE,
-
+    "str": tokenKind.STR,
 }
 
 export default function parse(code: string) {
@@ -17,26 +17,32 @@ export default function parse(code: string) {
     const skipChar = new Set(["\n", "\t", " ", ""])
 
 
-
     while (code.length > index) {
         let currentToken = code[index];
+
+
+        if(currentToken === '"' || currentToken === "'"){
+            console.log("here")
+        }
+        if(isIdentifier(char)){
+            tokens.push(createTk(tokenKind.ID, char));
+        }
 
         if(!skipChar.has(currentToken)){
             char+= currentToken;
 
         }else if(char !== ""){
-        if(char in keyworldMap){
-            tokens.push(createTk(keyworldMap[char], char))
-        }
-        if(isIdentifier(char)){
-            tokens.push(createTk(tokenKind.ID, char));
-        }
+            if(char in keyworldMap){
+                tokens.push(createTk(keyworldMap[char], char))
+            }
+       
             char = ""
         }
         
         
         index++;
     };
+
     console.log(tokens)
     return tokens;
 };
