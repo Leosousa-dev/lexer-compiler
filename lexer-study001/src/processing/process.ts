@@ -3,7 +3,12 @@ import { tokenKind, Token } from "../types/tokenTypes";
 import createTk from "../utils/createToken";
 
 
+const keyworldMap: Record<string, tokenKind> = {
+    "let": tokenKind.LET,
+    "{": tokenKind.LEFT_BRACE,
+    "}": tokenKind.RIGHT_BRACE,
 
+}
 
 export default function parse(code: string) {
     let tokens:  Token[] = [];
@@ -15,27 +20,14 @@ export default function parse(code: string) {
 
     while (code.length > index) {
         let currentToken = code[index];
-        let insideString: boolean = false;
 
         if(!skipChar.has(currentToken)){
             char+= currentToken;
 
         }else if(char !== ""){
-            
-            switch(char){
-                case "let":
-                    tokens.push(createTk(tokenKind.LET, char))
-                    break;
-                case "{":
-                    tokens.push(createTk(tokenKind.LEFT_BRACE, char))
-                    break;
-                case "}":
-                    tokens.push(createTk(tokenKind.RIGHT_BRACE, char))
-                    break;
-
-                default:
-                    console.error("caracter nao reconhecido: ", char)
-            };
+        if(char in keyworldMap){
+            tokens.push(createTk(keyworldMap[char], char))
+        }
         if(isIdentifier(char)){
             tokens.push(createTk(tokenKind.ID, char));
         }
