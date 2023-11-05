@@ -13,6 +13,24 @@ export default function parse(code: string) {
     while (code.length > index) {
         let currentToken = code[index];
 
+        if(!skipChar.has(currentToken)){
+            char += currentToken
+        }
+        else if(char !== ""){
+            switch(char){
+                case "let":
+                    console.log("ok")
+                    break;
+                default: 
+                    console.log("Token not recognized: ", char)
+                    break;
+                
+            };
+        
+            
+            char = ""
+        }
+ 
 
        
         
