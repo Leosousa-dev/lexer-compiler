@@ -3,15 +3,8 @@ import { tokenKind, Token } from "../types/tokenTypes";
 import createTk from "../utils/createToken";
 
 
-const keyworldMap: Record<string, tokenKind> = {
-    "let": tokenKind.LET,
-    "{": tokenKind.LEFT_BRACE,
-    "}": tokenKind.RIGHT_BRACE,
-    "str": tokenKind.STR,
-}
-
 export default function parse(code: string) {
-    let tokens:  Token[] = [];
+    let tokens:  Array<Token> = [];
     let index = 0;
     let char: string = "";
     const skipChar = new Set(["\n", "\t", " ", ""])
@@ -21,24 +14,7 @@ export default function parse(code: string) {
         let currentToken = code[index];
 
 
-        if(currentToken === '"' || currentToken === "'"){
-            console.log("here")
-        }
-        if(isIdentifier(char)){
-            tokens.push(createTk(tokenKind.ID, char));
-        }
-
-        if(!skipChar.has(currentToken)){
-            char+= currentToken;
-
-        }else if(char !== ""){
-            if(char in keyworldMap){
-                tokens.push(createTk(keyworldMap[char], char))
-            }
        
-            char = ""
-        }
-        
         
         index++;
     };
