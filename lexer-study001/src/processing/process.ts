@@ -1,7 +1,8 @@
 import { isIdentifier } from "../utils/isIdentifier";
 import { tokenKind, Token } from "../types/tokenTypes";
 import createTk from "../utils/createToken";
-
+import outPut from "../cli/output/out";
+import { exit } from "process";
 
 export default function parse(code: string) {
     let tokens:  Array<Token> = [];
@@ -17,16 +18,13 @@ export default function parse(code: string) {
             char += currentToken
         }
         else if(char !== ""){
-            switch(char){
-                case "let":
-                    console.log("ok")
-                    break;
-                default: 
-                    console.log("Token not recognized: ", char)
-                    break;
-                
-            };
-        
+            if(char === "let"){
+                tokens.push(createTk(tokenKind.LET, char))
+            }
+            else{
+                outPut(`Token 👉 ${char} is not recognized `, "remove is token")
+                exit()
+            }
             
             char = ""
         }
