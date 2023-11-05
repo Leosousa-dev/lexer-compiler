@@ -2,8 +2,8 @@
 export enum tokenKind{
     LET = 'let', // Keyword let
     EQ = 'eq', // Equality operator '=='
-    LP = 'lp', // Left parenthesis '('
-    RP = 'rp', // Right parenthesis ')'
+    LEFT_PARENT = 'lp', // Left parenthesis '('
+    RIGHT_PARENT = 'rp', // Right parenthesis ')'
     LEFT_BRACE = 'lcb', // Left curly brace '{'
     RIGHT_BRACE = 'rcb', // Right curly brace '}'
     SC = 'sc', // Semicolon ';'
