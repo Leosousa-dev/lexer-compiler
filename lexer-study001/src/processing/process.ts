@@ -21,6 +21,18 @@ export default function parse(code: string) {
             if(char === "let"){
                 tokens.push(createTk(tokenKind.LET, char))
             }
+            else if(char === "("){
+                tokens.push(createTk(tokenKind.LEFT_PARENT, char))
+            }
+            else if(char === ")"){
+                tokens.push(createTk(tokenKind.RIGHT_PARENT, char))
+            }
+            else if(char === "{"){
+                tokens.push(createTk(tokenKind.LEFT_BRACE, char))
+            }
+            else if(char === "}"){
+                tokens.push(createTk(tokenKind.RIGHT_BRACE, char))
+            }
             else{
                 outPut(`Token 👉 ${char} is not recognized `, "remove is token")
                 exit()
@@ -28,9 +40,6 @@ export default function parse(code: string) {
             
             char = ""
         }
- 
-
-       
         
         index++;
     };
